@@ -2,7 +2,7 @@
 
 This is a genetic algorithms based rubik cube solver written in Java (utilizing Swing for the UI).
 
-![GACubeSolver solving a scrambled cube](/screenshots/app_solving_animation.gif)
+<center>![GACubeSolver solving a scrambled cube](/screenshots/app_solving_animation.gif)</center>
 
 The ultimate goal of this project is to solve the classic 3x3 rubik cube purely using genetic algorithms. 
 
