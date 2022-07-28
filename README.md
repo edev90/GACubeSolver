@@ -2,6 +2,8 @@
 
 This is a genetic algorithms based rubik cube solver written in Java (utilizing Swing for the UI).
 
+![GACubeSolver solving a scrambled cube](/screenshots/app_solving_animation.gif)
+
 The ultimate goal of this project is to solve the classic 3x3 rubik cube purely using genetic algorithms. 
 
 For now, the solver is only capable of solving the 2x2 mini cube, aka 'pocket cube'. When the cube is scrambled only minimally, the solve times are fairly fast (a matter of fractional seconds), while cubes scrambled to a greater degree (10+ moves) can vary greatly: anywhere from just a few seconds to several minutes.
