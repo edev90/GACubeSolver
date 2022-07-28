@@ -1,5 +1,4 @@
 # GACubeSolver
-A genetic algorithms based Rubik's Cube solver written in Java
 
 This is a genetic algorithms based rubik cube solver written in Java (utilizing Swing for the UI).
 
