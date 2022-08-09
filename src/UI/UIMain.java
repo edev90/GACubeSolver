@@ -559,10 +559,4 @@ public class UIMain extends JFrame implements ActionListener {
 
     }
 
-    public static void main(String[] args) {
-        RotationControlButton.loadIcons();
-
-        new UIMain();
-    }
-
 }
