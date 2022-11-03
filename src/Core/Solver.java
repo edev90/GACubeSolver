@@ -15,60 +15,29 @@ public class Solver {
 
     }
 
-    class Gene {
-        String name = "";
-        int index = 0;
-        Gene(String name, int index) {
-            this.name = name;
-            this.index = index;
-        }
-        void doAction(Cube actor) {}
-        public String toString() {
-            return this.name;
-        }
-    }
-
-    class Chromosome {
-        int id = 0;
-        Vector<Gene> genes = new Vector();
-        int maxFitness = -1;
-        int maxGeneIndex = 0;
-
-        public Chromosome(int id) {
-            this.id = id;
-            for(int i = 0; i < CHROMOSOME_LEN; i++) {
-                genes.add(null);
-            }
-        }
-
-        public void setGene(int pos, Gene gene) {
-            this.genes.set(pos, gene);
-        }
-    }
-
     // init functions
     Gene[] geneTypes = {
-        new Gene("RotateTop1Time", 0) {void doAction(Cube actor) {actor.rotateTop(1);}},
-        new Gene("RotateTop-CC-1Time", 1) {void doAction(Cube actor) {actor.rotateTopCC(1);}},
-        new Gene("RotateBottom1Time", 2) {void doAction(Cube actor) {actor.rotateBottom(1);}},
-        new Gene("RotateBottom-CC-1Time", 3) {void doAction(Cube actor) {actor.rotateBottomCC(1);}},
-        new Gene("RotateLeft1Time", 4) {void doAction(Cube actor) {actor.rotateLeft(1);}},
-        new Gene("RotateLeft-CC-1Time", 5) {void doAction(Cube actor) {actor.rotateLeftCC(1);}},
-        new Gene("RotateRight1Time", 6) {void doAction(Cube actor) {actor.rotateRight(1);}},
-        new Gene("RotateRight-CC-1Time", 7) {void doAction(Cube actor) {actor.rotateRightCC(1);}},
-        new Gene("RotateBack1Time", 8) {void doAction(Cube actor) {actor.rotateBack(1);}},
-        new Gene("RotateBack-CC-1Time", 9) {void doAction(Cube actor) {actor.rotateBackCC(1);}},
-        new Gene("RotateFront1Time", 10) {void doAction(Cube actor) {actor.rotateFront(1);}},
-        new Gene("RotateFront-CC-1Time", 11) {void doAction(Cube actor) {actor.rotateFrontCC(1);}},
+        new Gene("RotateTop1Time", 0) {public void doAction(Cube cube) {cube.rotateTop(1);}},
+        new Gene("RotateTop-CC-1Time", 1) {public void doAction(Cube cube) {cube.rotateTopCC(1);}},
+        new Gene("RotateBottom1Time", 2) {public void doAction(Cube cube) {cube.rotateBottom(1);}},
+        new Gene("RotateBottom-CC-1Time", 3) {public void doAction(Cube cube) {cube.rotateBottomCC(1);}},
+        new Gene("RotateLeft1Time", 4) {public void doAction(Cube cube) {cube.rotateLeft(1);}},
+        new Gene("RotateLeft-CC-1Time", 5) {public void doAction(Cube cube) {cube.rotateLeftCC(1);}},
+        new Gene("RotateRight1Time", 6) {public void doAction(Cube cube) {cube.rotateRight(1);}},
+        new Gene("RotateRight-CC-1Time", 7) {public void doAction(Cube cube) {cube.rotateRightCC(1);}},
+        new Gene("RotateBack1Time", 8) {public void doAction(Cube cube) {cube.rotateBack(1);}},
+        new Gene("RotateBack-CC-1Time", 9) {public void doAction(Cube cube) {cube.rotateBackCC(1);}},
+        new Gene("RotateFront1Time", 10) {public void doAction(Cube cube) {cube.rotateFront(1);}},
+        new Gene("RotateFront-CC-1Time", 11) {public void doAction(Cube cube) {cube.rotateFrontCC(1);}},
     };
 
     // accepts parent Cube type -- but only supports 2x2 dimensions at the moment
-    private int calcFitness(Cube attempt) {
+    private int calcFitness(Cube cube) {
         int fitness = 0;
-        for(int y = 0; y < 2; y++) {
-            for(int x = 0; x < 2; x++) {
-                for(int z = 0; z < 2; z++) {
-                    fitness += attempt.getPiece(y,x,z).isInSameState(goalCube.getPiece(y,x,z)) ? 1 : 0;
+        for(int y = 0; y < cube.height; y++) {
+            for(int x = 0; x < cube.width; x++) {
+                for(int z = 0; z < cube.depth; z++) {
+                    fitness += cube.getPiece(y,x,z).isInSameState(goalCube.getPiece(y,x,z)) ? 1 : 0;
                 }
             }
         }
@@ -137,7 +106,7 @@ public class Solver {
         population.clear();
 
         for(int p = 0; p < POPULATION_SIZE; p++) {
-            Chromosome chromosome = new Chromosome(p);
+            Chromosome chromosome = new Chromosome(p, CHROMOSOME_LEN);
             population.add(chromosome);
         }
     }

@@ -21,9 +21,13 @@ public abstract class Cube {
         this.type = type;
     }
 
-    protected int height = 0;
-    protected int width = 0;
-    protected int depth = 0;
+    public int height = 0;
+    public int width = 0;
+    public int depth = 0;
+
+    public int fitness = 0;
+
+    protected Cube baseCube = null;
 
     public void setDimensions(int height, int width, int depth) {
         this.height = height;
@@ -49,6 +53,9 @@ public abstract class Cube {
     public void rotateBottom(int numTurns) {}
     public void rotateBottomCC(int numTurns) {}
 
+    // 3x3 specific rotations (does nothing on the 2x2):
+    public void rotateFrontWide(int numTurns) {}
+    public void rotateFrontWideCC(int numTurns) {}
 
     public String getFacesAsString() {
         /*** todo: implement */
@@ -71,6 +78,10 @@ public abstract class Cube {
                 }
             }
         }
+
+        copy.setDimensions(this.height, this.width, this.depth);
+
+        copy.fitness = this.fitness;
     }
 
     public boolean isInSameState(Cube other) {
@@ -83,6 +94,20 @@ public abstract class Cube {
             }
         }
         return isSame;
+    }
+
+    public String getCubeHash() {
+        String hash = "";
+
+        for(int y = 0; y < height; y++) {
+            for(int x = 0; x < width; x++) {
+                for (int z = 0; z < depth; z++) {
+                    hash += this.matrix[y][x][z].getPieceHash();
+                }
+            }
+        }
+
+        return hash;
     }
 
     public void scramble(int... moves) {
@@ -137,5 +162,11 @@ public abstract class Cube {
     public void dumpFaces() {
         System.out.println(getFacesAsString());
     }
+
+//    public static void main(String[] args) {
+//        Cube twoByTwoCube = CubeBuilder.makeCube(CubeType.TWO_BY_TWO);
+//        //Cube threeByThreeCube = CubeBuilder.makeCube(CubeType.THREE_BY_THREE);
+//        System.out.println(twoByTwoCube.getCubeHash());
+//    }
 
 }
